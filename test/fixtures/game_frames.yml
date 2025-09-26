@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  game: one
+  prev_frame: one
+  next_frame: one
+  state: 
+
+two:
+  game: two
+  prev_frame: two
+  next_frame: two
+  state: 
