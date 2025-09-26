@@ -2,12 +2,17 @@
 
 one:
   game: one
-  prev_frame: one
-  next_frame: one
-  state: 
+  next_frame_id: one
 
 two:
-  game: two
-  prev_frame: two
-  next_frame: two
-  state: 
+  game: one
+  prev_frame_id: one
+  next_frame_id: three
+three:
+  game: one
+  prev_frame_id: two
+  next_frame_id: four
+
+four:
+  game: one
+  prev_frame_id: three

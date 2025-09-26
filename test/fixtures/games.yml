@@ -2,10 +2,10 @@
 
 one:
   user: one
-  board_width: 1
-  board_height: 1
+  board_width: 8
+  board_height: 4
 
 two:
   user: two
-  board_width: 1
-  board_height: 1
+  board_width: 2
+  board_height: 3
