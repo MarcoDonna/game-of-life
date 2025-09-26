@@ -1,0 +1,16 @@
+<h1>Games#new</h1>
+<p>Find me in app/views/games/new.html.erb</p>
+
+<%= form_with model: @game do |form| %>
+    <div>
+        <%= form.label :board_width %>
+        <%= form.number_field :board_width %>
+    </div>
+    <div>
+        <%= form.label :board_height %>
+        <%= form.number_field :board_height %>
+    </div>
+    <div>
+        <%= form.submit %>
+    </div>
+<% end %>
