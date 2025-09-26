@@ -41,4 +41,11 @@ class GameFrameTest < ActiveSupport::TestCase
       frame.save
     end
   end
+
+  test "can have a prev frame" do
+    first_frame = GameFrame.create(game: games(:two), state: "******")
+    next_frame = GameFrame.create(game: games(:two), state: "...*.*", prev_frame: first_frame)
+
+    assert next_frame.prev_frame == first_frame
+  end
 end
