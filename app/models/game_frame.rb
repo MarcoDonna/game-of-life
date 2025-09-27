@@ -11,7 +11,7 @@ class GameFrame < ApplicationRecord
   validate :state_size
 
   def create_next_frame
-    new_frame = GameFrame.create(game: self.game, state: Array.new(self.game.board_size) { ["*", "."].sample }.join(), prev_frame: self)
+    new_frame = GameFrame.create(game: self.game, state: next_step_state, prev_frame: self)
     self.next_frame = new_frame
     self.save
 
@@ -31,5 +31,9 @@ class GameFrame < ApplicationRecord
 
     expected_state_size = game.board_height * game.board_width
     errors.add(:state, "board size mismatch") unless state.size == expected_state_size
+  end
+
+  def next_step_state
+    Array.new(self.game.board_size) { ["*", "."].sample }.join()
   end
 end
