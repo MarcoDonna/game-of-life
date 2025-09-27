@@ -1,0 +1,35 @@
+<h3> The Game of Life in a <%= @frame.game.board_width %> x <%= @frame.game.board_width %> board.</h3>
+
+<%= link_to "previous frame", show_game_frame_url(@frame.prev_frame) unless @frame.prev_frame.nil? %>
+<% if(@frame.next_frame) %>
+    <%= link_to "next frame", show_game_frame_url(@frame.next_frame) %>
+<% else %>
+    <%= link_to "next frame", new_game_frame_url(@frame) %>
+<% end %>
+
+<div class="game-frame">
+    <style>
+        .game-frame-grid{
+            display: grid;
+            grid-template-columns: <%= "40px " * @frame.game.board_width %>;
+        }
+
+        .game-frame-cell{
+            width: 40px;
+            height: 40px;
+        }
+
+        .alive{
+            background-color: pink;
+        }
+
+        .dead{
+            background-color: lightgray;
+        }
+    </style>
+    <div class="game-frame-grid">
+        <% @frame.state.chars.each do |cell| %>
+            <div class='game-frame-cell <%= cell == "*" ? "alive" : "dead" %>'></div>
+        <% end %>
+    </div>
+</div>

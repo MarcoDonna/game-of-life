@@ -8,6 +8,8 @@ class GameFramesController < ApplicationController
     @frame.next_frame = @new_frame
     @frame.save
 
+    # run background job to prepare next N frames
+
     redirect_to show_game_frame_url(@new_frame)
   end
 
