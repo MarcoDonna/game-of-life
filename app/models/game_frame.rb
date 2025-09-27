@@ -10,6 +10,14 @@ class GameFrame < ApplicationRecord
   validate :state_format
   validate :state_size
 
+  def create_next_frame
+    new_frame = GameFrame.create(game: self.game, state: Array.new(self.game.board_size) { ["*", "."].sample }.join(), prev_frame: self)
+    self.next_frame = new_frame
+    self.save
+
+    return new_frame  
+  end
+
   private
 
   def state_format
