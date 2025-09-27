@@ -2,4 +2,9 @@
 <p>Find me in app/views/game_frames/show.html.erb</p>
 
 <%= @frame.state.to_s %>
-<%= link_to "generate new frame", %>
+<%= link_to "previous frame", show_game_frame_url(@frame.prev_frame) unless @frame.prev_frame.nil? %>
+<% if(@frame.next_frame) %>
+    <%= link_to "next frame", show_game_frame_url(@frame.next_frame) %>
+<% else %>
+    <%= link_to "next frame", new_game_frame_url(@frame) %>
+<% end %>

@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get "games/new", to: "games#new", as: :new_game
   post "games", to: "games#create", as: :create_game
   
+  get "game_frames/:id/new", to: "game_frames#new", as: :new_game_frame
   get "game_frames/:id/show", to: "game_frames#show", as: :show_game_frame
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
