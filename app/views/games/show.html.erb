@@ -1,0 +1,12 @@
+<h1>GameFrames#show</h1>
+<p>Find me in app/views/game_frames/show.html.erb</p>
+
+<%= link_to "All games", games_url %>
+
+<h3>
+  The Game of Life in a <%= @frame.game.board_width %> x <%= @frame.game.board_height %> board.
+</h3>
+
+<%= turbo_frame_tag "frame-tag" do %>
+    <%= render @frame %>
+<% end %>

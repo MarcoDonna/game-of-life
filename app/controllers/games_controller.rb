@@ -5,6 +5,11 @@ class GamesController < ApplicationController
     @games = current_user.games
   end
 
+  def show
+    @game = Game.find(params[:id])
+    @frame = @game.frames.last
+  end
+
   def new
     @game = Game.new(user: current_user)
   end
