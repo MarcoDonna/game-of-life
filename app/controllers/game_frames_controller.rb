@@ -3,15 +3,19 @@ class GameFramesController < ApplicationController
   before_action :find_frame
 
   def new
-    @new_frame = GameFrame.find(params[:id]).create_next_frame
+    @new_frame = @frame.create_next_frame
 
-    # run background job to prepare next N frames
-
-    redirect_to show_game_frame_url(@new_frame)
+    respond_to do |format|
+      format.html { redirect_to show_game_frame_url(@new_frame) }
+    end    
   end
 
   def show
     @prev_frame = @frame.prev_frame
+
+    respond_to do |format|
+      format.html
+    end
   end
 
   private
@@ -19,6 +23,6 @@ class GameFramesController < ApplicationController
   def find_frame
     @frame = GameFrame.find(params[:id])
 
-    redirect_to games_url unless @frame.game.user = current_user
+    redirect_to games_url unless @frame.game.user == current_user
   end
 end

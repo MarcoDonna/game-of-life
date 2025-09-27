@@ -1,35 +1,36 @@
-<h3> The Game of Life in a <%= @frame.game.board_width %> x <%= @frame.game.board_width %> board.</h3>
+<%= turbo_frame_tag "frame-tag" do %>
+  <%= link_to "previous frame", show_game_frame_url(@frame.prev_frame), data: { turbo_frame: dom_id(@frame) } unless @frame.prev_frame.nil? %>
 
-<%= link_to "previous frame", show_game_frame_url(@frame.prev_frame) unless @frame.prev_frame.nil? %>
-<% if(@frame.next_frame) %>
-    <%= link_to "next frame", show_game_frame_url(@frame.next_frame) %>
-<% else %>
-    <%= link_to "next frame", new_game_frame_url(@frame) %>
-<% end %>
+  <% if @frame.next_frame %>
+    <%= link_to "next frame", show_game_frame_url(@frame.next_frame), data: { turbo_frame: dom_id(@frame) } %>
+  <% else %>
+    <%= link_to "next frame", new_game_frame_url(@frame), data: { turbo_frame: dom_id(@frame) } %>
+  <% end %>
 
-<div class="game-frame">
+  <div class="game-frame">
     <style>
-        .game-frame-grid{
-            display: grid;
-            grid-template-columns: <%= "5px " * @frame.game.board_width %>;
-        }
+      .game-frame-grid {
+        display: grid;
+        grid-template-columns: <%= "5px " * @frame.game.board_width %>;
+      }
 
-        .game-frame-cell{
-            width: 5px;
-            height: 5px;
-        }
+      .game-frame-cell {
+        width: 5px;
+        height: 5px;
+      }
 
-        .alive{
-            background-color: pink;
-        }
+      .alive {
+        background-color: pink;
+      }
 
-        .dead{
-            background-color: lightgray;
-        }
+      .dead {
+        background-color: lightgray;
+      }
     </style>
     <div class="game-frame-grid">
-        <% @frame.state.chars.each do |cell| %>
-            <div class='game-frame-cell <%= cell == "*" ? "alive" : "dead" %>'></div>
-        <% end %>
+      <% @frame.state.chars.each do |cell| %>
+        <div class="game-frame-cell <%= cell == "*" ? "alive" : "dead" %>"></div>
+      <% end %>
     </div>
-</div>
+  </div>
+<% end %>
