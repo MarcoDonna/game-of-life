@@ -1,7 +1,6 @@
 class GamesController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_game, only: [:show, :destroy]
-  before_action :authorize_user, only: [:destroy]
+  before_action :find_game, only: [:show]
   before_action :authorize_access, only: [:show]
 
   def index
@@ -36,13 +35,6 @@ class GamesController < ApplicationController
     else
       render :new
     end
-  end
-
-  def destroy 
-    @game.frames.destroy_all
-    @game.destroy
-
-    redirect_to games_url
   end
 
   private

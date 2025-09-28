@@ -4,17 +4,12 @@
   <%= link_to "next frame", @frame.next_frame ? show_game_frame_url(@frame.next_frame) : new_game_frame_url(@frame), id: "next-frame" %>
 
   <button id="autoplay" onClick="autoplay()">Autoplay</button>
-  <button id="pauseAutoplay" onClick="pauseAutoplay()">Pause</button>
   <script>
     function autoplay(){      
       document.autoplayInterval = setInterval(() => {
         nextFrameLink = document.getElementById("next-frame").click();
         nextFrameLink.click();
       }, 500);
-    }
-
-    function pauseAutoplay(){
-      clearInterval(document.autoplayInterval)
     }
   </script>
 
