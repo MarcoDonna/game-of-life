@@ -34,6 +34,53 @@ class GameFrame < ApplicationRecord
   end
 
   def next_step_state
-    Array.new(self.game.board_size) { ["*", "."].sample }.join()
+    self.state.chars.map.with_index do |cell, cell_index|
+      neighbours = cell_neighbours(cell_index)
+
+      alive_neighbours = neighbours.count("*")
+      if(cell == "*")
+        if(alive_neighbours < 2 || alive_neighbours > 3)
+          next "."
+        else
+          next "*"
+        end
+      else
+        if(alive_neighbours == 3)
+          next "*"
+        else
+          next "."
+        end
+      end
+    end.join()
+  end
+
+  def cell_neighbours(cell_index)
+    cell_neighbours_indexes(cell_index).map { |neighbours_index| self.state[neighbours_index] }
+  end
+
+  def cell_neighbours_indexes(cell_index)
+    board_width = self.game.board_width
+    board_height = self.game.board_height
+
+    cell_row = cell_index / board_width
+    cell_col = cell_index % board_height
+
+    neighbours = []
+
+    (-1..1).each do |delta_row|
+      (-1..1).each do |delta_col|
+        next if delta_col == 0 && delta_row == 0
+
+        neighbours_row = cell_row + delta_row
+        neighbours_col = cell_col + delta_col
+
+        next if neighbours_row < 0 || neighbours_row >= board_height
+        next if neighbours_col < 0 || neighbours_col >= board_width
+
+        neighbours << (neighbours_row * board_width + neighbours_col)
+      end
+    end
+
+    neighbours
   end
 end
