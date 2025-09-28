@@ -1,6 +1,8 @@
 <h1>Games#index</h1>
 <p>Find me in app/views/games/index.html.erb</p>
 
+<%= link_to "New game", new_game_url %>
+
 <% @games.each do |game| %>
     <%= last_frame_preview(game) %>
     <%= link_to "Open game", show_game_url(game) if game %>
