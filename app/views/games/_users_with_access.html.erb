@@ -1,0 +1,6 @@
+<div class="users-with-access">
+    <h5>Users with access</h5>
+    <% @game.users_with_shared_access.each do |user| %>
+        <%= user.email %><%= link_to "(Revoke access)", games_url if @game.user == current_user %>
+    <% end %>
+</div>
