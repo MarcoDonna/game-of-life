@@ -11,6 +11,6 @@ class User < ApplicationRecord
   def visible_games
     active_shared_games = shared_games.where(active: true)
 
-    Game.where(id: active_shared_games.select(:id)).or(Game.where(id: games.select(:id))).order(created_at: :desc)
+    Game.where(id: games_shared_with.select(:id)).or(Game.where(id: games.select(:id))).order(created_at: :desc)
   end
 end
