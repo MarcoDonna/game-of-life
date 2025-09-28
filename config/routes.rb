@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   get "game_frames/:id/new", to: "game_frames#new", as: :new_game_frame
   get "game_frames/:id/show", to: "game_frames#show", as: :show_game_frame
 
+  get "games/:game_id/share_tokens/new", to: "share_tokens#new", as: :new_share_token
+  get "share/:token", to: "share_tokens#accept", as: :accept_share_token
+
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
