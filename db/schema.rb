@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_26_165159) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_28_090658) do
   create_table "game_frames", force: :cascade do |t|
     t.integer "game_id", null: false
     t.integer "prev_frame_id"
@@ -44,8 +44,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_26_165159) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "game_frames", "game_frames", column: "next_frame_id"
-  add_foreign_key "game_frames", "game_frames", column: "prev_frame_id"
+  add_foreign_key "game_frames", "game_frames", column: "next_frame_id", on_delete: :nullify
+  add_foreign_key "game_frames", "game_frames", column: "prev_frame_id", on_delete: :nullify
   add_foreign_key "game_frames", "games"
   add_foreign_key "games", "users"
 end

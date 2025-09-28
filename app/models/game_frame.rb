@@ -10,6 +10,8 @@ class GameFrame < ApplicationRecord
   validate :state_format
   validate :state_size
 
+  before_destroy :unlink_frames
+
   def create_next_frame
     new_frame = GameFrame.create(game: self.game, state: next_step_state, prev_frame: self)
     self.next_frame = new_frame
@@ -19,6 +21,15 @@ class GameFrame < ApplicationRecord
   end
 
   private
+
+  def unlink_frames
+    prev_frame&.update!(next_frame: nil) if prev_frame
+    next_frame&.update!(prev_frame: nil) if next_frame
+
+    
+    puts self.prev_frame
+    puts self.next_frame
+  end
 
   def state_format
     return if state.blank?

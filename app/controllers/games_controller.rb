@@ -1,5 +1,6 @@
 class GamesController < ApplicationController
   before_action :authenticate_user!
+  before_action :find_game, only: [:show, :destroy]
 
   def index
     @games = current_user.games
@@ -36,10 +37,23 @@ class GamesController < ApplicationController
     end
   end
 
+  def destroy 
+    @game.frames.destroy_all
+    @game.destroy
+
+    redirect_to games_url
+  end
+
   private
 
   def create_game_params
     params.expect(game: [:board_width, :board_height, :file])
+  end
+
+  def find_game
+    @game = Game.find(params[:id])
+    
+    redirect_to games_url unless @game.user == current_user
   end
 
   def assign_attributes_from_file(game)
