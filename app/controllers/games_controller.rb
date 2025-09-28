@@ -15,14 +15,22 @@ class GamesController < ApplicationController
   end
 
   def create
-    @game = Game.new(create_game_params)
+    game_params = create_game_params
+
+    @game = Game.new()
     @game.user = current_user
 
+    if(game_params[:file].present?)
+      assign_attributes_from_file(@game)
+    else
+      @game.assign_attributes(game_params)
+      board_size = @game.board_height * @game.board_width
+      @initial_state = Array.new(board_size) { ["*", "."].sample }.join
+    end
+      
     if(@game.save)
-      board_size = @game.board_width * @game.board_height
-      initial_frame = GameFrame.create(game: @game, state: Array.new(board_size) { ["*", "."].sample }.join())
-
-      redirect_to games_url
+      GameFrame.create(game: @game, state: @initial_state)
+      redirect_to @game
     else
       render :new
     end
@@ -31,6 +39,18 @@ class GamesController < ApplicationController
   private
 
   def create_game_params
-    params.expect(game: [:board_width, :board_height])
+    params.expect(game: [:board_width, :board_height, :file])
+  end
+
+  def assign_attributes_from_file(game)
+    file = create_game_params[:file].read
+    game_data = file.each_line.map(&:strip)
+
+    board_dimensions = game_data[1].split(" ")
+      
+    @game.board_height = board_dimensions[0].to_i
+    @game.board_width = board_dimensions[1].to_i
+
+    @initial_state = game_data[2..].join()
   end
 end

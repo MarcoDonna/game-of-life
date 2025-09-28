@@ -5,5 +5,5 @@
 
 <% @games.each do |game| %>
     <%= last_frame_preview(game) %>
-    <%= link_to "Open game", show_game_url(game) if game %>
+    <%= link_to "Open game", game_url(game) if game %>
 <% end %>

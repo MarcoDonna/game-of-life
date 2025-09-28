@@ -14,3 +14,16 @@
         <%= form.submit %>
     </div>
 <% end %>
+
+<hr>
+<h4>or</h4>
+
+<%= form_with model: @game do |form| %>
+    <div>
+        <%= form.label :file %>
+        <%= form.file_field :file %>
+    </div>
+    <div>
+        <%= form.submit %>
+    </div>
+<% end %>
