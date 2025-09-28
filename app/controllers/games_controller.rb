@@ -1,6 +1,8 @@
 class GamesController < ApplicationController
   before_action :authenticate_user!
   before_action :find_game, only: [:show, :destroy]
+  before_action :authorize_user, only: [:destroy]
+  before_action :authorize_access, only: [:show]
 
   def index
     @games = current_user.visible_games
@@ -50,9 +52,15 @@ class GamesController < ApplicationController
   end
 
   def find_game
-    @game = Game.find(params[:id])
-    
+    @game = Game.find_by(id: params[:id])
+  end
+
+  def authorize_user
     redirect_to games_url unless @game.user == current_user
+  end
+
+  def authorize_access
+    redirect_to games_url unless @game.user == current_user || @game.users_with_shared_access.include?(current_user)
   end
 
   def assign_attributes_from_file(game)

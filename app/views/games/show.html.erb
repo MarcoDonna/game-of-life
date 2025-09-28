@@ -13,3 +13,6 @@
 <%= turbo_frame_tag "frame-tag" do %>
     <%= render @frame %>
 <% end %>
+
+
+<%= link_to "Destroy game", destroy_game_url(@game), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} if @game.user == current_user %>

@@ -7,5 +7,4 @@
     <h5>Game created by <%= game.user.email %>.</h5>
     <%= last_frame_preview(game) %>
     <%= link_to "Open game", game_url(game) if game %>
-    <%= link_to "Destroy game", destroy_game_url(game), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
 <% end %>

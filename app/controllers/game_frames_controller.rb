@@ -23,6 +23,6 @@ class GameFramesController < ApplicationController
   def find_frame
     @frame = GameFrame.find(params[:id])
 
-    redirect_to games_url unless @frame.game.user == current_user
+    redirect_to games_url unless @frame.game.user == current_user || @frame.game.users_with_shared_access.include?(current_user)
   end
 end
