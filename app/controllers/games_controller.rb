@@ -3,11 +3,10 @@ class GamesController < ApplicationController
   before_action :find_game, only: [:show, :destroy]
 
   def index
-    @games = current_user.games
+    @games = current_user.visible_games
   end
 
   def show
-    @game = Game.find(params[:id])
     @frame = @game.frames.last
   end
 
