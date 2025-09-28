@@ -6,6 +6,9 @@
 <h3>
   The Game of Life in a <%= @frame.game.board_width %> x <%= @frame.game.board_height %> board.
 </h3>
+<h5>
+  Game created by <%= @game.user.email %>.
+</h5>
 
 <%= turbo_frame_tag "frame-tag" do %>
     <%= render @frame %>
