@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_28_102257) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_28_115909) do
   create_table "game_frames", force: :cascade do |t|
     t.integer "game_id", null: false
     t.integer "prev_frame_id"
@@ -35,6 +35,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_28_102257) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_games_on_user_id"
+  end
+
+  create_table "share_tokens", force: :cascade do |t|
+    t.integer "game_id", null: false
+    t.integer "user_id", null: false
+    t.string "share_token"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_id"], name: "index_share_tokens_on_game_id"
+    t.index ["share_token"], name: "index_share_tokens_on_share_token", unique: true
+    t.index ["user_id"], name: "index_share_tokens_on_user_id"
   end
 
   create_table "shared_games", force: :cascade do |t|
@@ -63,6 +74,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_28_102257) do
   add_foreign_key "game_frames", "game_frames", column: "prev_frame_id", on_delete: :nullify
   add_foreign_key "game_frames", "games"
   add_foreign_key "games", "users"
+  add_foreign_key "share_tokens", "games"
+  add_foreign_key "share_tokens", "users"
   add_foreign_key "shared_games", "games"
   add_foreign_key "shared_games", "users"
 end
