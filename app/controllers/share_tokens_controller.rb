@@ -1,4 +1,6 @@
 class ShareTokensController < ApplicationController
+  before_action :authenticate_user!
+  
   def new
     @token = ShareToken.new(game: Game.find(params[:game_id]))
     
