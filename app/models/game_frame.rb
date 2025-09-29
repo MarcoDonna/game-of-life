@@ -74,7 +74,7 @@ class GameFrame < ApplicationRecord
     board_height = self.game.board_height
 
     cell_row = cell_index / board_width
-    cell_col = cell_index % board_height
+    cell_col = cell_index % board_width
 
     neighbours = []
 
