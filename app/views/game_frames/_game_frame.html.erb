@@ -5,7 +5,7 @@
 
   <button id="autoplay" onClick="autoplay()">Autoplay</button>
   <script>
-    function autoplay(){      
+    function autoplay(){
       document.autoplayInterval = setInterval(() => {
         nextFrameLink = document.getElementById("next-frame").click();
         nextFrameLink.click();
@@ -14,26 +14,7 @@
   </script>
 
   <div class="game-frame">
-    <style>
-      .game-frame-grid {
-        display: grid;
-        grid-template-columns: <%= "20px " * @frame.game.board_width %>;
-      }
-
-      .game-frame-cell {
-        width: 20px;
-        height: 20px;
-      }
-
-      .alive {
-        background-color: pink;
-      }
-
-      .dead {
-        background-color: lightgray;
-      }
-    </style>
-    <div class="game-frame-grid">
+    <div class="game-frame-grid" style="grid-template-columns: <%= "20px " * @frame.game.board_width %>;">
       <% @frame.state.chars.each do |cell| %>
         <div class="game-frame-cell <%= cell == "*" ? "alive" : "dead" %>"></div>
       <% end %>

@@ -1,0 +1,16 @@
+.game-frame-grid {
+    display: grid;
+}
+
+.game-frame-cell {
+    width: 20px;
+    height: 20px;
+}
+
+.alive {
+    background-color: var(--accent);
+}
+
+.dead {
+    background-color: var(--accent-bg)
+}
